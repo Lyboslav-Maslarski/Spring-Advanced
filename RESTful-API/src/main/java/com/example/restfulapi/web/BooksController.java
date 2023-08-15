@@ -6,6 +6,7 @@ import com.example.restfulapi.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,5 +46,27 @@ public class BooksController {
         return ResponseEntity
                 .noContent()
                 .build();
+    }
+
+    @PostMapping
+    public ResponseEntity<BookDTO> createBook(@RequestBody BookDTO newBook,
+                                              UriComponentsBuilder uriComponentsBuilder) {
+        Long id = bookService.creteBook(newBook);
+
+        return ResponseEntity
+                .created(uriComponentsBuilder.path("/api/books/{id}").build(id))
+                .build();
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<BookDTO> updateBook(@PathVariable("id") Long id, @RequestBody BookDTO bookDTO) {
+
+        BookDTO updatedBookDTO = this.bookService.persistBook(id, bookDTO);
+
+        if(updatedBookDTO == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(updatedBookDTO);
     }
 }
