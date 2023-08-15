@@ -1,7 +1,6 @@
 package com.example.restfulapi.web;
 
 import com.example.restfulapi.models.dtos.BookDTO;
-import com.example.restfulapi.models.entities.Book;
 import com.example.restfulapi.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +10,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/books")
 public class BooksController {
