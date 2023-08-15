@@ -17,7 +17,7 @@ public class RestTemplateDemo implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         ResponseEntity<BookDTO[]> allBooks = restTemplate
                 .getForEntity("http://localhost:8080/api/books", BookDTO[].class);
 
