@@ -36,4 +36,8 @@ public class BookService {
                 .setIsbn(book.getIsbn())
                 .setAuthor(new AuthorDTO().setName(book.getAuthor().getName()));
     }
+
+    public void deleteBookById(Long bookId) {
+        bookRepository.deleteById(bookId);
+    }
 }
