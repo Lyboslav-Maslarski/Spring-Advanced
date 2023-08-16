@@ -8,9 +8,9 @@ import com.example.hateoas.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -21,6 +21,15 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
+    public List<StudentDTO> getAllStudents() {
+        return studentRepository.findAll().stream().map(this::map).toList();
+    }
+
+    public List<OrderDTO> getStudentOrders(Long studentId) {
+        return getStudentById(studentId).
+                map(StudentDTO::getOrders).
+                orElseGet(ArrayList::new);
+    }
     public Optional<StudentDTO> getStudentById(Long studentId) {
         return studentRepository.findById(studentId).map(this::map);
     }
